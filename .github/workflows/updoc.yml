@@ -8,7 +8,7 @@ on:
         required: true
         type: string
       version:
-        description: 'The version you would like the release to have, e.g. v0.1'
+        description: 'The version you would like the release to have, e.g. v0.1.0'
         required: true
         type: string
 
