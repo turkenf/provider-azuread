@@ -17,6 +17,7 @@ jobs:
     uses: turkenf/uptest/.github/workflows/updoc.yml@main
     secrets:
       UPBOUND_CI_PROD_BUCKET_SA: ${{ secrets.UPBOUND_CI_PROD_BUCKET_SA }}
+      UPBOUND_BOT_GITHUB_TOKEN: ${{ secrets.UPBOUND_BOT_GITHUB_TOKEN }}
     with:
       version: ${{ github.event.inputs.version }}
       provider: ${{ github.event.inputs.provider }}
