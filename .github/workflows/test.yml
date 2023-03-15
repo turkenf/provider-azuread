@@ -30,12 +30,8 @@ jobs:
         run: |
           git config --global url."https://${{ secrets.UPBOUND_BOT_GITHUB_TOKEN }}:x-oauth-basic@github.com/upbound".insteadOf "https://github.com/upbound"
     
-      - name: Checkout Updoc
-        uses: actions/checkout@v2
-        with:
-          repository: upbound/official-provider-docs
-          path: './updoc'
-          submodules: true
+      - name: Clone Updoc
+        run: git clone https://github.com/upbound/official-provider-docs.git
 
       - name: Setup Go
         uses: actions/setup-go@v2
