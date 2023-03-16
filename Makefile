@@ -159,6 +159,7 @@ run: go.build
 # ====================================================================================
 # End to End Testing
 CROSSPLANE_NAMESPACE = upbound-system
+RELEASE_VERSION=$(shell echo $(VERSION) | cut -d '.' -f 1,2)
 -include build/makelib/local.xpkg.mk
 -include build/makelib/controlplane.mk
 
@@ -211,6 +212,16 @@ schema-version-diff:
 	git cat-file -p "$${GITHUB_BASE_REF}:config/schema.json" > "$(WORK_DIR)/schema.json.$${PREV_PROVIDER_VERSION}"; \
 	./scripts/version_diff.py config/generated.lst "$(WORK_DIR)/schema.json.$${PREV_PROVIDER_VERSION}" config/schema.json
 	@$(OK) Checking for native state schema version changes
+	
+ifneq (,$(filter release-%, $(BRANCH_NAME)))
+publish-docs:
+	ls ./docs
+	@echo "Publishing Docs, Provider: $(PROJECT_NAME), Version: $(RELEASE_VERSION)"
+	@echo go run github.com/upbound/uptest/cmd/updoc@updoc upload --docs-dir=./docs --name=$(PROJECT_NAME) --version=$(RELEASE_VERSION) --bucket-name=bucket-marketplace-docs-production --cdn-domain=https://user-content.upbound.io
+else
+publish-docs:
+	@echo "This job can only be run on branches starting with 'release-'"
+endif
 
 .PHONY: cobertura submodules fallthrough run crds.clean uptest e2e crddiff schema-version-diff
 
