@@ -8,7 +8,7 @@ on:
         required: true
 
 jobs:
-  tag:
+  publish-service-artifacts:
     uses: turkenf/uptest/.github/workflows/provider-publish-service-artifacts.yml@main
     with:
       subpackages: ${{ github.event.inputs.subpackages }}
