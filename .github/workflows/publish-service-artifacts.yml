@@ -5,6 +5,7 @@ on:
     inputs:
       subpackages:
         description: 'Subpackages to be built individually (e.g. monolith config ec2)'
+        default: 'monolith'
         required: false
       version:
         description: 'Provider version (e.g. v0.1.0)'
