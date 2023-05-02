@@ -6,11 +6,15 @@ on:
       subpackages:
         description: 'Subpackages to be built individually (e.g. monolith config ec2)'
         required: true
+      version:
+        description: 'Provider version (e.g. v0.1.0)'
+        required: true
 
 jobs:
   publish-service-artifacts:
     uses: turkenf/uptest/.github/workflows/provider-publish-service-artifacts.yml@main
     with:
+      version: ${{ github.event.inputs.version }}
       subpackages: ${{ github.event.inputs.subpackages }}
     secrets:
       UPBOUND_MARKETPLACE_PUSH_ROBOT_USR: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
